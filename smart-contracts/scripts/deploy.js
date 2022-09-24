@@ -1,3 +1,4 @@
+const fs = require("fs");
 const main = async () => {
   // --------- Sudoku ---------------------
 
@@ -60,7 +61,22 @@ const main = async () => {
   );
   await contractSkyscrapers.deployed();
   console.log("Skyscrapers Contract deployed to:", contractSkyscrapers.address);
+ 
+  // --------- Print address ---------------------
+ 
+  fs.writeFileSync(
+    "././contracts.js", `
+    export const SudokuVerifier = "${contractSudokuVerifier.address}"
+    export const Sudoku = "${contractSudoku.address}"
+    export const FutoshikiVerifier = "${contractFutoshikiVerifier.address}"
+    export const Futoshiki = "${contractFutoshiki.address}"
+    export const SkyscrapersVerifier = "${contractSkyscrapersVerifier.address}"
+    export const Skyscrapers = "${contractSkyscrapers.address}"
+    `
+  )
 };
+
+
 
 const runMain = async () => {
   try {
