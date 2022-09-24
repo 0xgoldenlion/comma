@@ -132,6 +132,7 @@ export default function Sudoku() {
   };
 
   const calculateProofAndMintNft = async () => {
+    
     setLoadingVerifyAndMintBtn(true);
     console.log("sudokuInitial", sudokuInitial);
     console.log("sudoku", sudoku);
@@ -145,19 +146,21 @@ export default function Sudoku() {
     // console.log("calldata", calldata);
 
     try {
+      console.log("succeefulSol")
       const succeefulSol = await client.store({
         abi: calldata[0],
         b: calldata[1],
         c: calldata[2],
         input : calldata[3]
       })     
-
+      console.log("start" )
       let txn = await contract.verifySudokuAndMintNft(
         calldata[0],
         calldata[1],
         calldata[2],
         calldata[3]
       );
+      console.log("txn", txn)
       await txn.wait();
       setLoadingVerifyAndMintBtn(false);
       alert(
