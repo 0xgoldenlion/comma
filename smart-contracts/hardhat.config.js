@@ -39,6 +39,11 @@ module.exports = {
       accounts: [process.env.MNENOMIC],
 
     },
+    skale: {
+      url: 'https://eth-online.skalenodes.com/v1/hackathon-complex-easy-naos',
+      accounts: [process.env.MNENOMIC],
+
+    },
     
   },
 };
