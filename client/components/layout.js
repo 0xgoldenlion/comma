@@ -16,7 +16,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <title>Comma</title>
         <meta name="title" content="Comma" />
