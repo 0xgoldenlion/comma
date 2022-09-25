@@ -52,7 +52,7 @@ export default function Sudoku() {
   const [accountQuery, disconnect] = useAccount();
   const [{ data, error, loading }] = useNetwork();
 
-  const client = new NFTStorage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDU3MzYzMDg1YzdDOTY1ZjFkNjRDREE2MTcxMTBkNUQ4NjRhNGY1ZjQiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1Nzc4MTQ4NDI0MSwibmFtZSI6InNhZnJlZSJ9.EbkAr2OabBm_M6iU1hBipBjDtRmH-DO5M3INt8Td2T8' })
+  const client = new NFTStorage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGIyNTNFRThhZWI2RjE3NjU4RmYyN0E1ZGMwQkUyZEMwOWVjZkMwOGMiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDA1MzE5MDU2MiwibmFtZSI6InByb2JsZW0ifQ.ehUQCoMC3bKMS0S-zoSGw-lA1OsqxxOBr_zaG5-hA4Q' })
 
   const [loadingVerifyBtn, setLoadingVerifyBtn] = useState(false);
   const [loadingVerifyAndMintBtn, setLoadingVerifyAndMintBtn] = useState(false);
@@ -143,16 +143,13 @@ export default function Sudoku() {
       return "Invalid inputs to generate witness.";
     }
 
-    // console.log("calldata", calldata);
+     console.log("calldata", calldata);
 
     try {
-      console.log("succeefulSol")
-      const succeefulSol = await client.store({
-        abi: calldata[0],
-        b: calldata[1],
-        c: calldata[2],
-        input : calldata[3]
-      })     
+      console.log("succeefulSol", calldata[3])
+      const someData = new Blob(calldata)
+      const { car } = await NFTStorage.encodeBlob(someData);
+      const cid = await client.storeCar(car);   
       console.log("start" )
       let txn = await contract.verifySudokuAndMintNft(
         calldata[0],
@@ -176,8 +173,8 @@ export default function Sudoku() {
         data: {
             chain: 'ethereum',
             name: 'Sudoku solved',
-            description: `managed to solve the sudoku woohoo ${succeefulSol} `,
-            file_url: nftimage.output_url,
+            description: `managed to solve the sudoku woohoo see it here https://nftstorage.link/ipfs/${cid} `,
+            file_url: 'https://bafybeif2g2xkpytrgoraojk3ui6x2n7jnbtc473wfkfsgzcwpcoxz4fe5y.ipfs.nftstorage.link',
             mint_to_address: accountQuery.data?.address,
         }
         };
