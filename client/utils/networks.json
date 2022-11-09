@@ -1,5 +1,5 @@
 {
-  "selectedChain": "420",
+  "selectedChain": "53",
   "1337": {
     "chainId": "1337",
     "chainName": "Localhost 8545",
@@ -48,6 +48,19 @@
     },
     "blockExplorerUrls": [
       "https://hackathon-complex-easy-naos.explorer.eth-online.skalenodes.com/"
+    ]
+  },
+  "53": {
+    "chainId": "53",
+    "chainName": "CoinEx Smart Chain Testnet",
+    "rpcUrls": [
+      "https://testnet-rpc.coinex.net/"
+    ],
+    "nativeCurrency": {
+      "symbol": "cett"
+    },
+    "blockExplorerUrls": [
+      "https://testnet.coinex.net"
     ]
   }
 }
