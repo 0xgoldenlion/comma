@@ -24,6 +24,32 @@
       "https://mumbai.polygonscan.com/"
     ]
   },
+  "1666700000": {
+    "chainId": "1666700000",
+    "chainName": "Harmony Testnet Shard 0",
+    "rpcUrls": [
+      "https://api.s0.b.hmny.io"
+    ],
+    "nativeCurrency": {
+      "symbol": "ONE"
+    },
+    "blockExplorerUrls": [
+      "https://explorer.pops.one/"
+    ]
+  },
+  "1666600000": {
+    "chainId": "1666600000",
+    "chainName": "Harmony Mainnet Shard 0",
+    "rpcUrls": [
+      "https://api.harmony.one"
+    ],
+    "nativeCurrency": {
+      "symbol": "ONE"
+    },
+    "blockExplorerUrls": [
+      "https://explorer.harmony.one/"
+    ]
+  },
   "420": {
     "chainId": "420",
     "chainName": "Optimism Goerli Testnet",
@@ -35,19 +61,6 @@
     },
     "blockExplorerUrls": [
       "https://goerli-optimism.etherscan.io/"
-    ]
-  },
-  "647426021": {
-    "chainId": "647426021",
-    "chainName": "EthOnline sChain",
-    "rpcUrls": [
-      "https://eth-online.skalenodes.com/v1/hackathon-complex-easy-naos"
-    ],
-    "nativeCurrency": {
-      "symbol": "sFUEL"
-    },
-    "blockExplorerUrls": [
-      "https://hackathon-complex-easy-naos.explorer.eth-online.skalenodes.com/"
     ]
   },
   "53": {
