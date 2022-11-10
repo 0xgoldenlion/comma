@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import sudokuImage from "../assets/sudoku.png";
+import skyscrapersImage from "../assets/skyscrapers.png";
 import GameCard from "./gameCard";
 
 export default function GameList() {
@@ -8,6 +9,11 @@ export default function GameList() {
       nameGame: "Sudoku",
       imageGame: sudokuImage,
       urlGame: "/sudoku",
+    },
+    {
+      nameGame: "Skyscrapers",
+      imageGame: skyscrapersImage,
+      urlGame: "/skyscrapers",
     },
   ]);
 
