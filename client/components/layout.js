@@ -31,16 +31,18 @@ export default function Layout({ children }) {
           property="twitter:description"
           content="Zero Knowledge Games Platform"
         />
-        <meta property="twitter:image" content="/socialMedia.png" />
+        <meta
+          property="twitter:image"
+          content="https://comma.one/socialMedia.png"
+        />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" key="ogtype" />
         <meta
-          property="og:url"
+          property="og:image"
           content="https:app"
-          key="ogurl"
+          key="ogimage"
         />
-        <meta property="og:image" content="/socialMedia.png" key="ogimage" />
         <meta property="og:title" content="Comma" key="ogtitle" />
         <meta
           property="og:description"
@@ -49,7 +51,7 @@ export default function Layout({ children }) {
         />
       </Head>
       <WagmiProvider autoConnect provider={provider}>
-        <div className="flex flex-col min-h-screen px-2 bg-red-900 text-slate-300">
+        <div className="flex flex-col min-h-screen px-2 bg-blue-700 text-slate-300">
           <Header />
           <main className="mb-auto">{children}</main>
           <Footer />

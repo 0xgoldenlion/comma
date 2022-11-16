@@ -1,9 +1,9 @@
-import Board from "../components/skyscrapers/board";
+import Board from "../components/futoshiki/board";
 import React, { useEffect, useState } from "react";
-import NumbersKeyboard from "../components/skyscrapers/numbersKeyboard";
+import NumbersKeyboard from "../components/futoshiki/numbersKeyboard";
 import Head from "next/head";
 import GoBack from "../components/goBack";
-import styles from "../styles/Skyscrapers.module.css";
+import styles from "../styles/Futoshiki.module.css";
 import {
   useAccount,
   useConnect,
@@ -17,26 +17,26 @@ import { switchNetwork } from "../utils/switchNetwork";
 
 import networks from "../utils/networks.json";
 
-import { skyscrapersCalldata } from "../zkproof/skyscrapers/snarkjsSkyscrapers";
+import { futoshikiCalldata } from "../zkproof/futoshiki/snarkjsFutoshiki";
 
 import contractAddress from "../utils/contractaddress.json";
 
-import skyscrapersContractAbi from "../utils/abiFiles/Skyscrapers/Skyscrapers.json";
+import futoshikiContractAbi from "../utils/abiFiles/Futoshiki/Futoshiki.json";
 
-let skyscrapersBoolInitialTemp = [
-  [false, false, false, false, false],
-  [false, false, false, false, false],
-  [false, false, false, false, false],
-  [false, false, false, false, false],
-  [false, false, false, false, false],
+let futoshikiBoolInitialTemp = [
+  [false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
+  [false, false, false, false],
 ];
 
-export default function Skyscrapers() {
-  const [skyscrapersInitial, setSkyscrapersInitial] = useState([]);
-  const [skyscrapersAmountInitial, setSkyscrapersAmountInitial] = useState([]);
-  const [skyscrapers, setSkyscrapers] = useState([]);
-  const [skyscrapersBoolInitial, setSkyscrapersBoolInitial] = useState(
-    skyscrapersBoolInitialTemp
+export default function Futoshiki() {
+  const [futoshikiInitial, setFutoshikiInitial] = useState([]);
+  const [futoshikiInequalitiesInitial, setFutoshikiInequalitiesInitial] =
+    useState([]);
+  const [futoshiki, setFutoshiki] = useState([]);
+  const [futoshikiBoolInitial, setFutoshikiBoolInitial] = useState(
+    futoshikiBoolInitialTemp
   );
   const [selectedPosition, setSelectedPosition] = useState([]);
 
@@ -53,36 +53,36 @@ export default function Skyscrapers() {
   const provider = useProvider();
 
   const contract = useContract({
-    addressOrName: contractAddress.skyscrapersContract,
-    contractInterface: skyscrapersContractAbi.abi,
+    addressOrName: contractAddress.futoshikiContract,
+    contractInterface: futoshikiContractAbi.abi,
     signerOrProvider: signer.data || provider,
   });
 
   const contractNoSigner = useContract({
-    addressOrName: contractAddress.skyscrapersContract,
-    contractInterface: skyscrapersContractAbi.abi,
+    addressOrName: contractAddress.futoshikiContract,
+    contractInterface: futoshikiContractAbi.abi,
     signerOrProvider: provider,
   });
 
   const updatePosition = (number) => {
     if (selectedPosition.length > 0) {
-      if (!skyscrapersBoolInitial[selectedPosition[0]][selectedPosition[1]])
+      if (!futoshikiBoolInitial[selectedPosition[0]][selectedPosition[1]])
         return;
-      const temp = [...skyscrapers];
+      const temp = [...futoshiki];
       temp[selectedPosition[0]][selectedPosition[1]] = number;
-      setSkyscrapers(temp);
-      console.log("skyscrapers", skyscrapers);
+      setFutoshiki(temp);
+      console.log("futoshiki", futoshiki);
     }
   };
 
   const calculateProof = async () => {
     setLoadingVerifyBtn(true);
-    console.log("skyscrapersInitial", skyscrapersInitial);
-    console.log("skyscrapers", skyscrapers);
-    let calldata = await skyscrapersCalldata(
-      skyscrapersInitial,
-      skyscrapers,
-      skyscrapersAmountInitial
+    console.log("futoshikiInitial", futoshikiInitial);
+    console.log("futoshiki", futoshiki);
+    let calldata = await futoshikiCalldata(
+      futoshikiInitial,
+      futoshiki,
+      futoshikiInequalitiesInitial
     );
 
     if (!calldata) {
@@ -98,14 +98,14 @@ export default function Skyscrapers() {
         accountQuery.data?.address &&
         data.chain.id.toString() === networks.selectedChain
       ) {
-        result = await contract.verifySkyscrapers(
+        result = await contract.verifyFutoshiki(
           calldata[0],
           calldata[1],
           calldata[2],
           calldata[3]
         );
       } else {
-        result = await contractNoSigner.verifySkyscrapers(
+        result = await contractNoSigner.verifyFutoshiki(
           calldata[0],
           calldata[1],
           calldata[2],
@@ -121,19 +121,19 @@ export default function Skyscrapers() {
     }
   };
 
-  const verifySkyscrapers = async () => {
+  const verifyFutoshiki = async () => {
     console.log("Address", accountQuery.data?.address);
     calculateProof();
   };
 
   const calculateProofAndMintNft = async () => {
     setLoadingVerifyAndMintBtn(true);
-    console.log("skyscrapersInitial", skyscrapersInitial);
-    console.log("skyscrapers", skyscrapers);
-    let calldata = await skyscrapersCalldata(
-      skyscrapersInitial,
-      skyscrapers,
-      skyscrapersAmountInitial
+    console.log("futoshikiInitial", futoshikiInitial);
+    console.log("futoshiki", futoshiki);
+    let calldata = await futoshikiCalldata(
+      futoshikiInitial,
+      futoshiki,
+      futoshikiInequalitiesInitial
     );
 
     if (!calldata) {
@@ -144,7 +144,7 @@ export default function Skyscrapers() {
     // console.log("calldata", calldata);
 
     try {
-      let txn = await contract.verifySkyscrapersAndMintNft(
+      let txn = await contract.verifyFutoshikiAndMintNft(
         calldata[0],
         calldata[1],
         calldata[2],
@@ -155,7 +155,7 @@ export default function Skyscrapers() {
       alert(
         `Successfully verified! The NFT has been minted and sent to your wallet. You can see the contract here: ${
           networks[networks.selectedChain].blockExplorerUrls[0]
-        }address/${contractAddress.skyscrapersContract}`
+        }address/${contractAddress.futoshikiContract}`
       );
     } catch (error) {
       setLoadingVerifyAndMintBtn(false);
@@ -163,25 +163,25 @@ export default function Skyscrapers() {
     }
   };
 
-  const verifySkyscrapersAndMintNft = async () => {
+  const verifyFutoshikiAndMintNft = async () => {
     console.log("Address", accountQuery.data?.address);
     calculateProofAndMintNft();
   };
 
-  const renderVerifySkyscrapers = () => {
+  const renderVerifyFutoshiki = () => {
     return (
       <button
         className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-r from-white to-white hover:from-blue-100 hover:to-blue-200  text-blue-700"
-        onClick={verifySkyscrapers}
+        onClick={verifyFutoshiki}
         disabled={loadingVerifyBtn}
       >
         {loadingVerifyBtn && <div className={styles.loader}></div>}
-        <span>Verify Skyscrapers</span>
+        <span>Verify Futoshiki</span>
       </button>
     );
   };
 
-  const renderVerifySkyscrapersAndMintNft = () => {
+  const renderVerifyFutoshikiAndMintNft = () => {
     if (!accountQuery.data?.address) {
       return (
         <button
@@ -190,7 +190,7 @@ export default function Skyscrapers() {
             connect(connectQuery.data.connectors[0]);
           }}
         >
-          Connect Wallet to Verify Skyscrapers & Mint NFT
+          Connect Wallet to Verify Futoshiki & Mint NFT
         </button>
       );
     } else if (
@@ -204,18 +204,18 @@ export default function Skyscrapers() {
             switchNetwork();
           }}
         >
-          Switch Network to Verify Skyscrapers & Mint NFT
+          Switch Network to Verify Futoshiki & Mint NFT
         </button>
       );
     } else {
       return (
         <button
           className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-r from-white to-white hover:from-blue-100 hover:to-blue-200  text-blue-700"
-          onClick={verifySkyscrapersAndMintNft}
+          onClick={verifyFutoshikiAndMintNft}
           disabled={loadingVerifyAndMintBtn}
         >
           {loadingVerifyAndMintBtn && <div className={styles.loader}></div>}
-          <span>Verify Skyscrapers & Mint NFT</span>
+          <span>Verify Futoshiki & Mint NFT</span>
         </button>
       );
     }
@@ -229,31 +229,30 @@ export default function Skyscrapers() {
         accountQuery.data?.address &&
         data.chain.id.toString() === networks.selectedChain
       ) {
-        board = await contract.generateSkyscrapersBoard(new Date().toString());
+        board = await contract.generateFutoshikiBoard(new Date().toString());
       } else {
-        board = await contractNoSigner.generateSkyscrapersBoard(
+        board = await contractNoSigner.generateFutoshikiBoard(
           new Date().toString()
         );
       }
 
       console.log("result", board);
 
-      setSkyscrapersInitial(board[0]);
-      setSkyscrapersAmountInitial(board[1]);
+      setFutoshikiInitial(board[0]);
+      setFutoshikiInequalitiesInitial(board[1]);
 
       console.log("inequalities: ", board[1]);
 
       let newArray = board[0].map((arr) => {
         return arr.slice();
       });
-      setSkyscrapers(newArray);
+      setFutoshiki(newArray);
 
       const temp = [
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
+        [false, false, false, false],
+        [false, false, false, false],
+        [false, false, false, false],
+        [false, false, false, false],
       ];
       for (let i = 0; i < board[0].length; i++) {
         for (let j = 0; j < board[0].length; j++) {
@@ -262,10 +261,10 @@ export default function Skyscrapers() {
           }
         }
       }
-      setSkyscrapersBoolInitial(temp);
+      setFutoshikiBoolInitial(temp);
     } catch (error) {
       console.log(error);
-      alert("Failed fetching Skyscrapers board");
+      alert("Failed fetching Futoshiki board");
     }
   };
 
@@ -286,17 +285,17 @@ export default function Skyscrapers() {
     );
   };
 
-  const renderSkyscrapers = () => {
-    if (skyscrapers.length !== 0) {
+  const renderFutoshiki = () => {
+    if (futoshiki.length !== 0) {
       return (
         <>
           <div>
             <Board
-              skyscrapersAmountInitial={skyscrapersAmountInitial}
-              skyscrapers={skyscrapers}
+              futoshikiInequalitiesInitial={futoshikiInequalitiesInitial}
+              futoshiki={futoshiki}
               setSelectedPosition={(pos) => setSelectedPosition(pos)}
               selectedPosition={selectedPosition}
-              skyscrapersBoolInitial={skyscrapersBoolInitial}
+              futoshikiBoolInitial={futoshikiBoolInitial}
             />
           </div>
           <div>
@@ -305,10 +304,10 @@ export default function Skyscrapers() {
             </div>
             <NumbersKeyboard updatePosition={updatePosition} />
             <div className="flex justify-center items-center my-10">
-              {renderVerifySkyscrapers()}
+              {renderVerifyFutoshiki()}
             </div>
             <div className="flex justify-center items-center my-10">
-              {renderVerifySkyscrapersAndMintNft()}
+              {renderVerifyFutoshikiAndMintNft()}
             </div>
           </div>
         </>
@@ -324,7 +323,7 @@ export default function Skyscrapers() {
   };
 
   useEffect(() => {
-    console.log("Skyscrapers page");
+    console.log("Futoshiki page");
 
     initializeBoard();
 
@@ -333,11 +332,11 @@ export default function Skyscrapers() {
   return (
     <div>
       <Head>
-        <title>comma - Skyscrapers</title>
-        <meta name="title" content="comma - Skyscrapers" />
+        <title>comma - Futoshiki</title>
+        <meta name="title" content="comma - Futoshiki" />
         <meta
           name="description"
-          content="Zero Knowledge Games Platform - Skyscrapers"
+          content="Zero Knowledge Games Platform - Futoshiki"
         />
       </Head>
       <div className="mb-10">
@@ -345,30 +344,34 @@ export default function Skyscrapers() {
       </div>
       <div className="flex">
         <div className="mx-5 mb-10 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white">
-          Skyscrapers
+          Futoshiki
         </div>
       </div>
       <div className="flex flex-wrap gap-20 justify-center items-center text-slate-300">
-        {renderSkyscrapers()}
+        {renderFutoshiki()}
       </div>
       <div className="flex place-content-center mt-20 text-lg text-slate-300">
         <div className="md:w-6/12">
-          <div className="text-center my-5 font-semibold">
-            Skyscrapers rules:
-          </div>
+          <div className="text-center my-5 font-semibold">Futoshiki rules:</div>
           <div className="space-y-5">
             <p>
-              <span className="font-semibold">Skyscrapers</span> consists of a
-              square grid. The goal is to fill in each cell with numbers from 1
-              to N, where N is the size of the puzzle&apos;s side.
+              <span className="font-semibold">Futoshiki</span> (from Japanese,
+              literally &quot;not equal&quot;; also known as
+              &quot;Hutoshiki&quot;, &quot;Unequal&quot;) is a logic puzzle. The
+              puzzle is played on a square grid, such as 4 x 4.
             </p>
             <ul className="list-disc space-y-2 pl-5">
-              <li>No number may appear twice in any row or column.</li>
               <li>
-                The numbers along the edge of the puzzle indicate the number of
-                buildings which you would see from that direction if there was a
-                series of skyscrapers with heights equal the entries in that row
-                or column.
+                The objective is to place the numbers 1 to 4 (or whatever the
+                dimensions are) in each row, ensuring that each column also only
+                contains the digits 1 to 4.
+              </li>
+              <li>Some digits may be given at the start.</li>
+              <li>
+                Inequality constraints are also initially specifed between some
+                of the squares, such that one must be higher or lower than its
+                neighbour. These constraints must be honoured as the grid is
+                filled out.
               </li>
             </ul>
           </div>

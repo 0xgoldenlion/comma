@@ -6,8 +6,8 @@ export default function NumbersKeyboard({ updatePosition }) {
           Erase Number
         </button>
       </div>
-      <div className="grid grid-cols-3 gap-3">
-        {[...Array(5)].map((e, i) => {
+      <div className="grid grid-cols-2 gap-3">
+        {[...Array(4)].map((e, i) => {
           return (
             <button
               key={i + 1}

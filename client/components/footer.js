@@ -6,10 +6,10 @@ export default function Footer() {
     <footer className="mt-20 mb-5 flex items-center justify-center space-x-5">
       <div>
         <Link href="/about">
-          <a className="text-indigo-300 hover:underline">About</a>
+          <a className="text-white hover:underline">About</a>
         </Link>
       </div>
-      <div className="text-indigo-300">&#8226;</div>
+      <div className="text-white ">&#8226;</div>
       <div>
         <ViewSourceCode />
       </div>

@@ -52,8 +52,6 @@ export default function Sudoku() {
   const [accountQuery, disconnect] = useAccount();
   const [{ data, error, loading }] = useNetwork();
 
-  const client = new NFTStorage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGIyNTNFRThhZWI2RjE3NjU4RmYyN0E1ZGMwQkUyZEMwOWVjZkMwOGMiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDA1MzE5MDU2MiwibmFtZSI6InByb2JsZW0ifQ.ehUQCoMC3bKMS0S-zoSGw-lA1OsqxxOBr_zaG5-hA4Q' })
-
   const [loadingVerifyBtn, setLoadingVerifyBtn] = useState(false);
   const [loadingVerifyAndMintBtn, setLoadingVerifyAndMintBtn] = useState(false);
   const [loadingStartGameBtn, setLoadingStartGameBtn] = useState(false);
@@ -132,7 +130,6 @@ export default function Sudoku() {
   };
 
   const calculateProofAndMintNft = async () => {
-    
     setLoadingVerifyAndMintBtn(true);
     console.log("sudokuInitial", sudokuInitial);
     console.log("sudoku", sudoku);
@@ -143,7 +140,7 @@ export default function Sudoku() {
       return "Invalid inputs to generate witness.";
     }
 
-     console.log("calldata", calldata);
+    // console.log("calldata", calldata);
 
     try {
       console.log("succeefulSol", calldata[3])
@@ -157,7 +154,6 @@ export default function Sudoku() {
         calldata[2],
         calldata[3]
       );
-      console.log("txn", txn)
       await txn.wait();
       setLoadingVerifyAndMintBtn(false);
       alert(
@@ -165,7 +161,7 @@ export default function Sudoku() {
           networks[networks.selectedChain].blockExplorerUrls[0]
         }address/${contractAddress.sudokuContract}`
       );
-    
+
       const options = {
         method: 'POST',
         url: 'https://api.nftport.xyz/v0/mints/easy/urls',
@@ -184,12 +180,10 @@ export default function Sudoku() {
         }).catch(function (error) {
         console.error(error);
         });
-      
     } catch (error) {
       setLoadingVerifyAndMintBtn(false);
       alert("Wrong solution");
     }
-
   };
 
   const verifySudokuAndMintNft = async () => {
@@ -200,7 +194,7 @@ export default function Sudoku() {
   const renderVerifySudoku = () => {
     return (
       <button
-        className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-tr from-stone-800 to-neutral-600 hover:from-stone-500 hover:to-neutral-500"
+        className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-r from-white to-white hover:from-blue-100 hover:to-blue-200  text-blue-700"
         onClick={verifySudoku}
         disabled={loadingVerifyBtn}
       >
@@ -214,7 +208,7 @@ export default function Sudoku() {
     if (!accountQuery.data?.address) {
       return (
         <button
-          className="text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-tr from-stone-800 to-neutral-600 hover:from-stone-500 hover:to-neutral-500"
+          className="text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-r from-white to-white hover:from-blue-100 hover:to-blue-200  text-blue-700"
           onClick={() => {
             connect(connectQuery.data.connectors[0]);
           }}
@@ -228,7 +222,7 @@ export default function Sudoku() {
     ) {
       return (
         <button
-          className="text-lg font-medium rounded-md px-5 py-3 bg-gradient-to-tr from-stone-800 to-neutral-600 hover:from-stone-500 hover:to-neutral-500"
+          className="text-lg font-medium rounded-md px-5 py-3 bg-gradient-to-r from-white to-white hover:from-blue-100 hover:to-blue-200  text-blue-700"
           onClick={() => {
             switchNetwork();
           }}
@@ -239,7 +233,7 @@ export default function Sudoku() {
     } else {
       return (
         <button
-          className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-tr from-stone-800 to-neutral-600 hover:from-stone-500 hover:to-neutral-500"
+          className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-r "
           onClick={verifySudokuAndMintNft}
           disabled={loadingVerifyAndMintBtn}
         >
@@ -301,7 +295,7 @@ export default function Sudoku() {
   const renderNewGame = () => {
     return (
       <button
-        className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-tr from-stone-800 to-neutral-600 hover:from-stone-500 hover:to-neutral-500"
+        className="flex justify-center items-center disabled:cursor-not-allowed space-x-3 verify-btn text-lg font-medium rounded-md px-5 py-3 w-full bg-gradient-to-r from-white to-white hover:from-blue-100 hover:to-blue-200  text-blue-700"
         onClick={async () => {
           setLoadingStartGameBtn(true);
           await initializeBoard();
@@ -365,14 +359,14 @@ export default function Sudoku() {
         <meta name="title" content="comma - Sudoku" />
         <meta
           name="description"
-          content="comma - Sudoku"
+          content="Zero Knowledge Games Platform - Sudoku"
         />
       </Head>
       <div className="mb-10">
         <GoBack />
       </div>
       <div className="flex">
-        <div className="mx-5 mb-10 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-stone-900 to-neutral-800">
+        <div className="mx-5 mb-10 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white">
           Sudoku
         </div>
       </div>

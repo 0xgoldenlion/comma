@@ -3,7 +3,7 @@ const GITHUB_LINK = "https://github.com/0xgoldenlion/comma";
 export default function ViewSourceCode() {
   return (
     <a
-      className="flex space-x-1 text-indigo-300 hover:underline"
+      className="flex space-x-1 text-white  hover:underline"
       href={GITHUB_LINK}
       target="_blank"
       rel="noreferrer noopener nofollow"

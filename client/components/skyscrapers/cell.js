@@ -12,11 +12,11 @@ export default function Cell({
         .getElementById(
           selectedPosition[0].toString() + selectedPosition[1].toString()
         )
-        .classList.toggle("bg-indigo-800");
+        .classList.toggle("bg-blue-300");
     }
     document
       .getElementById(row.toString() + col.toString())
-      .classList.toggle("bg-indigo-800");
+      .classList.toggle("bg-blue-300");
     let position = [];
     position = [row, col];
     console.log("Position", position);
@@ -31,7 +31,7 @@ export default function Cell({
         return <span>{value}</span>;
       }
     } else {
-      return <span className="text-indigo-400">{value}</span>;
+      return <span className="text-blue-400">{value}</span>;
     }
   };
 

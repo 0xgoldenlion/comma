@@ -1,5 +1,5 @@
 {
-  "selectedChain": "53",
+  "selectedChain": "80001",
   "1337": {
     "chainId": "1337",
     "chainName": "Localhost 8545",
@@ -22,58 +22,6 @@
     },
     "blockExplorerUrls": [
       "https://mumbai.polygonscan.com/"
-    ]
-  },
-  "1666700000": {
-    "chainId": "1666700000",
-    "chainName": "Harmony Testnet Shard 0",
-    "rpcUrls": [
-      "https://api.s0.b.hmny.io"
-    ],
-    "nativeCurrency": {
-      "symbol": "ONE"
-    },
-    "blockExplorerUrls": [
-      "https://explorer.pops.one/"
-    ]
-  },
-  "1666600000": {
-    "chainId": "1666600000",
-    "chainName": "Harmony Mainnet Shard 0",
-    "rpcUrls": [
-      "https://api.harmony.one"
-    ],
-    "nativeCurrency": {
-      "symbol": "ONE"
-    },
-    "blockExplorerUrls": [
-      "https://explorer.harmony.one/"
-    ]
-  },
-  "420": {
-    "chainId": "420",
-    "chainName": "Optimism Goerli Testnet",
-    "rpcUrls": [
-      "https://goerli.optimism.io/"
-    ],
-    "nativeCurrency": {
-      "symbol": "ETH"
-    },
-    "blockExplorerUrls": [
-      "https://goerli-optimism.etherscan.io/"
-    ]
-  },
-  "53": {
-    "chainId": "53",
-    "chainName": "CoinEx Smart Chain Testnet",
-    "rpcUrls": [
-      "https://testnet-rpc.coinex.net/"
-    ],
-    "nativeCurrency": {
-      "symbol": "cett"
-    },
-    "blockExplorerUrls": [
-      "https://testnet.coinex.net"
     ]
   }
 }

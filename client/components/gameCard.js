@@ -7,7 +7,7 @@ export default function GameCard({ nameGame, imageGame, urlGame }) {
       <div className="grid grid-cols-1 place-items-center gap-5">
         <Link href={urlGame}>
           <a>
-            <div className="text-2xl font-bold text-transparent bg-clip-text bg-white">
+            <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-white">
               {nameGame}
             </div>
           </a>
@@ -25,7 +25,7 @@ export default function GameCard({ nameGame, imageGame, urlGame }) {
           </a>
         </Link>
         <Link href={urlGame}>
-          <a className="w-full flex justify-center items-center space-x-1 transition-colors duration-150 mb-4 text-lg text-slate-300 font-semibold py-3 px-5 rounded-md bg-gradient-to-r from-black to-black hover:from-stone-800 hover:to-stone-800">
+          <a className="w-full flex justify-center items-center space-x-1 transition-colors duration-150 mb-4 text-lg font-semibold py-3 px-5 rounded-md bg-gradient-to-r  from-white to-white hover:from-stone-900 hover:to-stone-900 text-blue-700 hover:text-white">
             <span>Play</span>
             <span>{nameGame}</span>
           </a>
