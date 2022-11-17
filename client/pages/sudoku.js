@@ -55,6 +55,8 @@ export default function Sudoku() {
   const [loadingVerifyBtn, setLoadingVerifyBtn] = useState(false);
   const [loadingVerifyAndMintBtn, setLoadingVerifyAndMintBtn] = useState(false);
   const [loadingStartGameBtn, setLoadingStartGameBtn] = useState(false);
+  
+  const client = new NFTStorage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGIyNTNFRThhZWI2RjE3NjU4RmYyN0E1ZGMwQkUyZEMwOWVjZkMwOGMiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2NDA1MzE5MDU2MiwibmFtZSI6InByb2JsZW0ifQ.ehUQCoMC3bKMS0S-zoSGw-lA1OsqxxOBr_zaG5-hA4Q' })
 
   const [signer] = useSigner();
 
