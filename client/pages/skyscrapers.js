@@ -21,7 +21,11 @@ import { skyscrapersCalldata } from "../zkproof/skyscrapers/snarkjsSkyscrapers";
 
 import contractAddress from "../utils/contractaddress.json";
 
+import { NFTStorage } from 'nft.storage'
+
 import skyscrapersContractAbi from "../utils/abiFiles/Skyscrapers/Skyscrapers.json";
+
+import axios from "axios";
 
 let skyscrapersBoolInitialTemp = [
   [false, false, false, false, false],
@@ -144,6 +148,10 @@ export default function Skyscrapers() {
     // console.log("calldata", calldata);
 
     try {
+
+      const someData = new Blob(calldata)
+      const { car } = await NFTStorage.encodeBlob(someData);
+      const cid = await client.storeCar(car);   
       let txn = await contract.verifySkyscrapersAndMintNft(
         calldata[0],
         calldata[1],
@@ -157,6 +165,26 @@ export default function Skyscrapers() {
           networks[networks.selectedChain].blockExplorerUrls[0]
         }address/${contractAddress.skyscrapersContract}`
       );
+
+      const options = {
+        method: 'POST',
+        url: 'https://api.nftport.xyz/v0/mints/easy/urls',
+        headers: {'Content-Type': 'application/json', Authorization: '6a6e5864-aedf-463f-b939-19ee2b53192d'},
+        data: {
+            chain: 'skyscapers',
+            name: 'Sudoku solved',
+            description: `managed to solve the skyscrapers woohoo see it here https://nftstorage.link/ipfs/${cid} `,
+            file_url: 'https://bafybeif2g2xkpytrgoraojk3ui6x2n7jnbtc473wfkfsgzcwpcoxz4fe5y.ipfs.nftstorage.link',
+            mint_to_address: accountQuery.data?.address,
+        }
+        };
+        axios.request(options).then(function (response) {
+        console.log(response.data);
+        setNft(false);
+        }).catch(function (error) {
+        console.error(error);
+        });
+
     } catch (error) {
       setLoadingVerifyAndMintBtn(false);
       alert("Wrong solution");
