@@ -163,25 +163,6 @@ export default function Sudoku() {
           networks[networks.selectedChain].blockExplorerUrls[0]
         }address/${contractAddress.sudokuContract}`
       );
-
-      const options = {
-        method: 'POST',
-        url: 'https://api.nftport.xyz/v0/mints/easy/urls',
-        headers: {'Content-Type': 'application/json', Authorization: '6a6e5864-aedf-463f-b939-19ee2b53192d'},
-        data: {
-            chain: 'polygon',
-            name: 'Sudoku solved',
-            description: `managed to solve the sudoku woohoo see it here https://nftstorage.link/ipfs/${cid} `,
-            file_url: 'https://bafybeif2g2xkpytrgoraojk3ui6x2n7jnbtc473wfkfsgzcwpcoxz4fe5y.ipfs.nftstorage.link',
-            mint_to_address: accountQuery.data?.address,
-        }
-        };
-        axios.request(options).then(function (response) {
-        console.log(response.data);
-        setNft(false);
-        }).catch(function (error) {
-        console.error(error);
-        });
     } catch (error) {
       setLoadingVerifyAndMintBtn(false);
       alert("Wrong solution");
