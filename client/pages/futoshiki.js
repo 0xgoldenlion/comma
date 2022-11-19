@@ -169,18 +169,7 @@ export default function Futoshiki() {
         }address/${contractAddress.futoshikiContract}`
       );
 
-      const options = {
-        method: 'POST',
-        url: 'https://api.nftport.xyz/v0/mints/easy/urls',
-        headers: {'Content-Type': 'application/json', Authorization: '6a6e5864-aedf-463f-b939-19ee2b53192d'},
-        data: {
-            chain: 'polygon',
-            name: 'futoshiki solved',
-            description: `managed to solve the futoshiki woohoo see it here https://nftstorage.link/ipfs/${cid} `,
-            file_url: 'https://bafybeif2g2xkpytrgoraojk3ui6x2n7jnbtc473wfkfsgzcwpcoxz4fe5y.ipfs.nftstorage.link',
-            mint_to_address: accountQuery.data?.address,
-        }
-        };
+      
     } catch (error) {
       setLoadingVerifyAndMintBtn(false);
       alert("Wrong solution");
