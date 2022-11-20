@@ -220,7 +220,7 @@ contract Futoshiki is ERC721URIStorage {
         // );
         // console.log("--------------------\n");
 
-        _safeMint(msg.sender, newItemId);
+        _mint(msg.sender, newItemId);
 
         // Update the URI!!!
         _setTokenURI(newItemId, finalTokenUri);
